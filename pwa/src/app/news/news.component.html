@@ -1,15 +1,12 @@
-<ion-item *ngIf="news" [routerLink]="'/news/' + news.id" [detail]="false">
-  <div slot="start" [class]="!news.read ? 'dot dot-unread' : 'dot'"></div>
-  <ion-label class="ion-text-wrap">
-    <h2>
-      {{ news.title._text }}
-      <span class="date">
-        <ion-note>{{ news.pubDate._text }}</ion-note>
-        <ion-icon name="chevron-forward" size="small" *ngIf="isIos()"></ion-icon>
-      </span>
-    </h2>
-    <h3>{{ news.subject }}</h3>
-    <div [innerHTML]="news.description._cdata.split('\n')[0]">
+<ion-card *ngIf="news" (click)="openNews(news.link?._text || news.url?._text)">
+  <ion-card-header>
+    <ion-card-subtitle>{{ news.pubDate?._text }}</ion-card-subtitle>
+    <ion-card-title>{{ news.title?._text }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    {{ news.subject }}
+    <div [innerHTML]="news.description._cdata">
     </div>
-  </ion-label>
-  </ion-item>
+  </ion-card-content>
+</ion-card>

@@ -84,7 +84,7 @@ export class DataService {
   }
 
   merge(obj) {
-      return [].concat.apply([], Object.keys(obj).map(_ => obj[_]));
+      return [].concat.apply([], Object.keys(obj).map(_ => {obj[_].map(e => e.origin = _); return obj[_]}))
   }
 
   public getTopics() {

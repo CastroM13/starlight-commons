@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { NewsComponentModule } from '../news/news.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { NewsComponentModule } from '../news/news.module';
     FormsModule,
     IonicModule,
     NewsComponentModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    SharedModule
   ],
   declarations: [HomePage]
 })

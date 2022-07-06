@@ -1,19 +1,36 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-list *ngIf="topics.length > 0">
-      <ion-item>
-        <ion-select (ionChange)="updateTopicList($event)" placeholder="Selecionar fontes de Notícia" [multiple]="true">
-          <ion-select-option *ngFor="let topic of topics" [value]="topic.id">{{topic.name}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
+  <ion-toolbar id="open-modal">
+    <ion-item>
+      <ion-input [value]="pickedTopics" readonly placeholder="Selecionar fonte de Notícia" expand="block"></ion-input><ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-modal #modal trigger="open-modal" [swipeToClose]="true" [canDismiss]="canDismiss">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title><ion-item><ion-icon slot="end" name="search-outline"></ion-icon><ion-input [(ngModel)]="filter" placeholder="Digite uma fonte RSS"></ion-input></ion-item></ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal.dismiss()"><ion-icon name="close-outline"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item *ngFor="let topic of topics | search:filter:['name', 'origin']" (click)="updateTopicList(topic.id)"><ion-badge color="dark" slot="end">{{topic.origin}}</ion-badge>{{topic.name}}</ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  
+  <div class="loading-wrapper" *ngIf="newsList.length === 0">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
   
   <ion-list *ngIf="newsList.length > 0">
     <app-news *ngFor="let news of newsList" [news]="news"></app-news>
