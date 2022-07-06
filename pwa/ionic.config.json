@@ -1,0 +1,7 @@
+{
+  "name": "Starlight Commons",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

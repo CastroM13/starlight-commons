@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-list *ngIf="topics.length > 0">
+      <ion-item>
+        <ion-select (ionChange)="updateTopicList($event)" placeholder="Selecionar fontes de Notícia" [multiple]="true">
+          <ion-select-option *ngFor="let topic of topics" [value]="topic.id">{{topic.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list *ngIf="newsList.length > 0">
+    <app-news *ngFor="let news of newsList" [news]="news"></app-news>
+  </ion-list>
+</ion-content>

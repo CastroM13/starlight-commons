@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Starlight Commons",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
